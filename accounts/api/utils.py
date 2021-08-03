@@ -6,7 +6,7 @@ from django.utils import timezone
 
 # expire_delta             = api_settings.defaults['JWT_REFRESH_EXPIRATION_DELTA']
 expire_delta             = settings.JWT_AUTH['JWT_REFRESH_EXPIRATION_DELTA']
-print(expire_delta)
+# print(expire_delta)
 
 
 

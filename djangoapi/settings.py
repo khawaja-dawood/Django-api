@@ -18,7 +18,7 @@ import rest_framework.permissions
 
 import core.apps
 import os
-from core.mode import *
+from core.config import *
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
