@@ -3,6 +3,7 @@ import requests
 import os
 
 new = 'http://127.0.0.1:8000/get_api/'
+register_new = 'http://127.0.0.1:8000/get_api/register/'
 AUTH_ENDPOINT = "http://127.0.0.1:8000/api/token/"
 REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
 
@@ -10,16 +11,19 @@ REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
 
 headers = {
     "Content-Type": "application/json",
+    # "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImYxOGJiMTA3IiwiZXhwIjoxNjI4MDIzNTQ5LCJlbWFpbCI6ImRhd29vZG5hdmVlZDBAZ21haWwuY29tIiwib3JpZ19pYXQiOjE2MjgwMjMyNDl9.zDbysGN-iaEnCrZr1YgKfCZntArjqb-_928kscUFM-M',
 }
 
 data = {
-    'username': 'f18bb107',
+    'username': 'f18bb112',
+    'email': 'f18bb112@gmail.com',
     'password': 'Spotify420',
+    'password2': 'Spotify420',
 }
 
-r = requests.post(new, data=json.dumps(data), headers=headers)
-token = r.json()
-print(token)
+r = requests.post(register_new, data=json.dumps(data), headers=headers)
+response = r.json()
+print(response)
 
 """----------------------------------------------------------------------------------------------------"""
 
