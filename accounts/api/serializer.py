@@ -12,17 +12,35 @@ expire_delta                    = api_settings.JWT_REFRESH_EXPIRATION_DELTA
 user = get_user_model()
 
 
+
+
+
+class UserPublicSerializer(serializers.ModelSerializer):
+    uri = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = user
+        fields = ['id', 'username', 'uri']
+
+    def get_uri(self, obj):
+        return f"http://127.0.0.1:8000/api/users/{obj.id}/"
+
+
 class UserRegisterSerializer(serializers.ModelSerializer):
     # password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     token = serializers.SerializerMethodField(read_only=True)
     expires = serializers.SerializerMethodField(read_only=True)
-    token_response = serializers.SerializerMethodField(read_only=True)
+    message = serializers.SerializerMethodField(read_only=True)
+    # token_response = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = user
-        fields = ['username', 'email', 'password', 'password2', 'token', 'expires', 'token_response']
+        fields = ['username', 'email', 'password', 'password2', 'token', 'expires', 'message']
         extra_kwargs = {'password': {'write_only': True}}
+
+    def get_message(self):
+        return 'Thank you for registering your account'
 
     def validate_username(self, value):
         qs = user.objects.filter(username__iexact=value)
@@ -42,17 +60,18 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         token = jwt_encode_handler(payload)
         return token
 
-    def get_expires(self, obj):
+    def get_expires(self):
         return timezone.now() + expire_delta - datetime.timedelta(seconds=200)
 
-    def get_token_response(self, obj):
-        payload = jwt_payload_handler(obj)
-        token = jwt_encode_handler(payload)
-        context = self.context
-        request = context['request']
-        print(request.user.is_authenticated)
-        response = jwt_response_payload_handler(token, user, request=context['request'])
-        return response
+    # get_token_response
+    # def get_token_response(self, obj):
+    #     payload = jwt_payload_handler(obj)
+    #     token = jwt_encode_handler(payload)
+    #     context = self.context
+    #     request = context['request']
+    #     print(request.user.is_authenticated)
+    #     response = jwt_response_payload_handler(token, user, request=context['request'])
+    #     return response
 
     def validate(self, data):
         pw = data.get('password')
@@ -64,7 +83,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         print(validated_data)
-        user_obj = user.objects.create(username=validated_data.get('username'), email=validated_data.get('email'))
+        user_obj = user(username=validated_data.get('username'), email=validated_data.get('email'))
         user_obj.set_password = validated_data.get('password')
         user_obj.save()
         return user_obj

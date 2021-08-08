@@ -5,17 +5,19 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 from .serializer import UserRegisterSerializer
+from accounts.api.user.serializers import UserDetailSerializer
+
+from accounts.api.permissions import AnonPermissionOnly, IsOwnerOrReadOnly
 
 jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 jwt_response_payload_handler = api_settings.JWT_RESPONSE_PAYLOAD_HANDLER
 
-
-
 User = get_user_model()
 
 
 class AuthAPIView(APIView):
+    # api endpoint for data get without signing in, anyone can access this authenticated or unauthenticated users
     permission_classes = [permissions.AllowAny]
 
     def post(self, request, *args, **kwargs):
@@ -42,8 +44,9 @@ class AuthAPIView(APIView):
 
 
 class RegisterAPIView(generics.CreateAPIView):
+    # registering a user using useranme, email ,password and password2
     queryset = User.objects.all()
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [AnonPermissionOnly]
     serializer_class = UserRegisterSerializer
 
     def get_serializer_context(self, *args, **kwargs):

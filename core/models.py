@@ -12,3 +12,7 @@ class Post(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+    # @property
+    # def user(self):
+    #     return self.owner

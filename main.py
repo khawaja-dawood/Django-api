@@ -2,30 +2,84 @@ import json
 import requests
 import os
 
-new = 'http://127.0.0.1:8000/get_api/'
-register_new = 'http://127.0.0.1:8000/get_api/register/'
-AUTH_ENDPOINT = "http://127.0.0.1:8000/api/token/"
-REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
+get_token = 'http://127.0.0.1:8000/api/get/'
+register_account = 'http://127.0.0.1:8000/api/register/'
+data_get_post = 'http://127.0.0.1:8000/api/'
+data_put_delete = 'http://127.0.0.1:8000/api/upde/'
+# AUTH_ENDPOINT = "http://127.0.0.1:8000/api/token/"
+# REFRESH_ENDPOINT = AUTH_ENDPOINT + "refresh/"
 
-# image_path = os.path.join(os.getcwd(), "logo.jpg")
 
-headers = {
-    "Content-Type": "application/json",
-    # "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImYxOGJiMTA3IiwiZXhwIjoxNjI4MDIzNTQ5LCJlbWFpbCI6ImRhd29vZG5hdmVlZDBAZ21haWwuY29tIiwib3JpZ19pYXQiOjE2MjgwMjMyNDl9.zDbysGN-iaEnCrZr1YgKfCZntArjqb-_928kscUFM-M',
-}
+"""--------------------------------------------------------------------------------------------"""
 
-data = {
-    'username': 'f18bb112',
-    'email': 'f18bb112@gmail.com',
-    'password': 'Spotify420',
-    'password2': 'Spotify420',
-}
+"""end point for users for obtaining tokens without signing in"""
 
-r = requests.post(register_new, data=json.dumps(data), headers=headers)
-response = r.json()
-print(response)
+# headers = {
+#     "Content-Type": "application/json",
+# }
+# data = {
+#     'username': 'f18bb101',
+#     'password': 'Spotify420',
+# }
+# response = requests.post(get_token, data=json.dumps(data), headers=headers)
+# token = response.json()['token']
+# print(token)
 
-"""----------------------------------------------------------------------------------------------------"""
+"""--------------------------------------------------------------------------------------------"""
+
+"""api endpoint for data get without signing in, anyone can access this authenticated or unauthenticated users"""
+
+# headers2 = {
+#     # "Content-Type": "application/json",
+#     "Authorization": "JWT " + token,
+# }
+#
+# response = requests.get(url=data_put_delete + '13/', headers=headers2)
+# print(response)  #status_code
+# print(response.text)
+
+"""--------------------------------------------------------------------------------------------"""
+
+"""api endpoint for data put and post without signing in"""
+
+# img = os.path.join(os.getcwd(), 'dawood_1.jpg')
+# headers2 = {
+#     # "Content-Type": "application/json",
+#     "Authorization": "JWT " + token,
+# }
+# data2 = {
+#     'title': 'some new title 12',
+#     'description': 'new content post'
+# }
+# #
+# if img is not None:
+#     with open(img, 'rb') as image:
+#         file_data = {
+#             'image': image
+#         }
+#         #         # response = requests.post(url=data_get_post, data=data2, headers=headers2, files=file_data)
+#         response = requests.put(url=data_put_delete + '13/', data=data2, headers=headers2, files=file_data)
+#         print(response)  # status_code
+#         print(response.text)
+
+"""--------------------------------------------------------------------------------------------"""
+
+"""Registering new account and get  username, email, token, expires, message"""
+
+# headers = {
+#     "Content-Type": "application/json",
+#     # "Authorization": "JWT " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNywidXNlcm5hbWUiOiJmMThiYjExOSIsImV4cCI6MTYyODE2NDc4MCwiZW1haWwiOiJmMThiYjExOUBnbWFpbC5jb20iLCJvcmlnX2lhdCI6MTYyODE2NDQ4MH0.cXXWphZzEI977a804BEreI9tEHM3IuAPBHqZpykN2zU',
+# }
+# data = {
+#     'username': 'f18bb120',
+#     'email': 'f18bb120@gmail.com',
+#     'password': 'Spotify420',
+#     'password2': 'Spotify420',
+# }
+# response = requests.post(register_account, data=json.dumps(data), headers=headers)
+# print(response.json())
+
+"""---------------------------------------------------------------------------------------------"""
 
 # headers2 = {
 #     "Content-Type": "application/json",
@@ -43,7 +97,6 @@ print(response)
 # json_data = json.dumps(data2)
 # posted_response = requests.post(post_data + str(5) + "/", data=data, headers=headers2)
 # print(posted_response)
-
 
 
 # AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/register/"

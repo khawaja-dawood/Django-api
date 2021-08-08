@@ -139,14 +139,16 @@ REST_FRAMEWORK = {
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         # 'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication'
-
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+        # 'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'core.pagination.MyCustomPagination',
 }
 
-
+# LOGOUT_REDIRECT_URL =
+# LOGIN_REDIRECT_URL
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
