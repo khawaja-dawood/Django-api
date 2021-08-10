@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 # from rest_framework.authentication import SessionAuthentication
 
 from accounts.api.permissions import IsOwnerOrReadOnly
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostSerializerUpDe
 from rest_framework import generics
 from rest_framework import mixins, permissions
 
@@ -66,6 +66,8 @@ class PostListCreateView(generics.ListCreateAPIView):
     # permission_classes = [permissions.IsAuthenticated]
     # authentication_classes = [SessionAuthentication]
 
+    search_fields = ['owner__username', 'description']
+    ordering_fields = ['owner__username', 'timestamp']
     serializer_class = PostSerializer
     queryset = Post.objects.all()
 
@@ -81,7 +83,7 @@ class PostUpdateDeleteView(generics.RetrieveDestroyAPIView, generics.UpdateAPIVi
     # How we wanted to be authenticated
     # authentication_classes = [SessionAuthentication]
 
-    serializer_class = PostSerializer
+    serializer_class = PostSerializerUpDe
     queryset = Post.objects.all()
 
 # class StatusAPIView(

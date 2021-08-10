@@ -145,6 +145,15 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'core.pagination.MyCustomPagination',
+    # 'limit_query_param': 'limit',
+    # 'offset_query_param': 'offset',
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+    'SEARCH_PARAM': 'search',
+    'ORDERING_PARAM': 'ordering',
 }
 
 # LOGOUT_REDIRECT_URL =

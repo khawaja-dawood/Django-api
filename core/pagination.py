@@ -5,5 +5,5 @@ from rest_framework import pagination
 #     page_size = 5
 
 class MyCustomPagination(pagination.LimitOffsetPagination):
-    default_limit = 4
+    default_limit = 8
     max_limit = 15
