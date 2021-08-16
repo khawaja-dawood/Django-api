@@ -16,3 +16,29 @@ class Post(models.Model):
     # @property
     # def user(self):
     #     return self.owner
+
+
+
+
+
+
+
+class Book(models.Model):
+    title = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=200, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.title)
+
+
+class Review(models.Model):
+
+    value = models.CharField(max_length=50)
+    project = models.ForeignKey(Book, on_delete=models.CASCADE, null=True, blank=True)
+    author = models.ForeignKey(User, max_length=300, on_delete=models.CASCADE, null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
+
+
+    def __str__(self):
+        return self.value

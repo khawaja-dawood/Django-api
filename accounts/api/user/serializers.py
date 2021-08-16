@@ -10,6 +10,7 @@ user = get_user_model()
 class UserDetailSerializer(serializers.ModelSerializer):
     uri = serializers.SerializerMethodField(read_only=True)
     posts = serializers.SerializerMethodField(read_only=True)
+
     posts_lists = serializers.HyperlinkedRelatedField(source='post_set',  # posts.objects.filter(owner=user)
                                                       many=True, read_only=True, lookup_field='pk',
                                                       view_name='api-core:upd-del')
@@ -26,9 +27,11 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     def get_posts(self, obj):
         request = self.context.get('request')
-        limit = 10
+        limit = None
         if request:
             limit_query = request.GET.get('limit')
+            # print(limit_query)
+            # print(type(limit_query))
             try:
                 limit = int(limit_query)
             except:

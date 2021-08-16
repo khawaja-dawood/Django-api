@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Post
+from .models import Post, Book, Review
 from accounts.api.serializer import UserPublicSerializer
 from rest_framework.reverse import reverse as api_reverse
 
@@ -64,13 +64,29 @@ class PostSerializerUpDe(PostSerializer):
     owner = UserPublicSerializer(read_only=True)
     # user_id = serializers.PrimaryKeyRelatedField(source='user', read_only=True)
 
-
-
     class Meta:
         model = Post
         fields = ['uri', 'id', 'owner', 'title', 'description', 'image', 'file']
 
-
     def get_uri(self, obj):
         request = self.context.get('request')
         return api_reverse("api-core:upd-del", kwargs={'pk': obj.id}, request=request)
+
+
+"""-----------------------------------------------------------------------------------------------"""
+
+
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['value', 'author', 'body']
+
+
+class BookSerializer(serializers.ModelSerializer):
+    review = ReviewSerializer(read_only=True)
+
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'review']

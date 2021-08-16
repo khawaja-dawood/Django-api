@@ -10,6 +10,7 @@ urlpatterns = [
 
     path('', PostListCreateView.as_view(), name='get-posts'),
     path('upde/<int:pk>/', PostUpdateDeleteView.as_view(), name='upd-del'),
+    path('books/', getBooksList.as_view(), name='get-books'),
     path('jwt/token/', obtain_jwt_token, name='get_token'),
     path('token/get/refresh/', refresh_jwt_token, name='refresh_token'),
 

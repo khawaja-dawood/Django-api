@@ -10,7 +10,7 @@ urlpatterns = [
     path('token/', AuthAPIView.as_view(), name='login'),
 
     # registering a user using useranme, email ,password and password2
-    path('register/', RegisterAPIView.as_view()),
+    path('register/', RegisterAPIView.as_view(), name='register'),
     path('<str:username>/', UserDetailView.as_view(), name='detail'),
     path('<str:username>/posts/', UserPostView.as_view(), name='post-list'),
 

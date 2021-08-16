@@ -3,7 +3,7 @@ from rest_framework import generics, permissions, pagination
 from accounts.api.user.serializers import UserDetailSerializer
 from core.serializers import PostInlineUserSerializer
 from accounts.api.permissions import AnonPermissionOnly, IsOwnerOrReadOnly
-from core.models import Post
+from core.models import Post, Book, Review
 from core.pagination import MyCustomPagination
 
 

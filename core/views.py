@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 # from rest_framework.authentication import SessionAuthentication
 
 from accounts.api.permissions import IsOwnerOrReadOnly
-from .serializers import PostSerializer, PostSerializerUpDe
+from .serializers import PostSerializer, PostSerializerUpDe, BookSerializer
 from rest_framework import generics
 from rest_framework import mixins, permissions
 
@@ -85,6 +85,18 @@ class PostUpdateDeleteView(generics.RetrieveDestroyAPIView, generics.UpdateAPIVi
 
     serializer_class = PostSerializerUpDe
     queryset = Post.objects.all()
+
+
+class getBooksList(generics.ListAPIView):
+    # permissions we wanted to be enforced
+    permission_classes = [permissions.AllowAny]
+    # How we wanted to be authenticated
+    # authentication_classes = [SessionAuthentication]
+
+    serializer_class = BookSerializer
+    queryset = Post.objects.all()
+
+"""______________________________________________________________________"""
 
 # class StatusAPIView(
 #     mixins.CreateModelMixin,

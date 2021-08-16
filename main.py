@@ -19,7 +19,7 @@ data_put_delete = 'http://127.0.0.1:8000/api/upde/'
 # }
 # data = {
 #     'username': 'f18bb101',
-#     'password': 'Spotify420',
+#     'password': '',
 # }
 # response = requests.post(get_token, data=json.dumps(data), headers=headers)
 # token = response.json()['token']
